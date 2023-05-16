@@ -3,3 +3,5 @@
 - editorconfi
 - path alias
 - husky
+- commitlint
+- commitzen
