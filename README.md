@@ -2,3 +2,4 @@
 - prettier
 - editorconfi
 - path alias
+- husky
