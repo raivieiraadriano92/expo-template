@@ -1,0 +1,4 @@
+- eslint
+- prettier
+- editorconfi
+- path alias
