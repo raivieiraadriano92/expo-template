@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
+import { i18n } from 'src/i18n'
 
 import type { RootStackScreen } from 'src/navigation'
 
 export const HomeScreen: RootStackScreen<'Home'> = () => (
   <View style={styles.container}>
-    <Text>Open up App.tsx to start working on your app!</Text>
+    <Text>{i18n.t('screens.home.title')}</Text>
   </View>
 )
 
