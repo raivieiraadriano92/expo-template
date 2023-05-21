@@ -1,7 +1,12 @@
 export type Translation = {
-  screens: {
-    home: {
-      title: string
+  translation: {
+    screens: {
+      home: {
+        title: string
+      }
+      profile: {
+        title: string
+      }
     }
   }
 }

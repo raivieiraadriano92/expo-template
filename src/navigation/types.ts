@@ -7,6 +7,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 export type RootStackParamList = {
   //   Home: NavigatorScreenParams<HomeTabParamList>
   Home: undefined
+  Profile: undefined
 }
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = NativeStackScreenProps<
