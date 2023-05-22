@@ -1,6 +1,19 @@
 {
   "name": "@raivieiraadriano92/expo-template",
-  "version": "1.0.1",
+  "version": "1.0.2",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/raivieiraadriano92/expo-template",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raivieiraadriano92/expo-template"
+  },
+  "author": {
+    "email": "raivieiraadriano92@gmail.com",
+    "name": "Raí Adriano",
+    "url": "https://github.com/raivieiraadriano92"
+  },
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
