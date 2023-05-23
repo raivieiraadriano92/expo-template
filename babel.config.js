@@ -12,7 +12,8 @@ module.exports = function (api) {
             src: './src'
           }
         }
-      ]
+      ],
+      'nativewind/babel'
     ],
     presets: ['babel-preset-expo']
   }

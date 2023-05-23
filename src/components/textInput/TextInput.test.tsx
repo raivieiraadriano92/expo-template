@@ -1,32 +1,23 @@
 import { View } from 'react-native'
-import { fireEvent, render, screen } from 'src/utils/tests'
+import { render, screen } from 'src/utils/tests'
 
-import { Button } from './Button'
+import { TextInput } from './TextInput'
 
 const defaultProps = {
-  onPress: jest.fn(),
+  placeholder: 'My Input',
   renderLeft: jest.fn(() => <View testID="left-id" />),
-  renderRight: jest.fn(() => <View testID="right-id" />),
-  title: 'My button'
+  renderRight: jest.fn(() => <View testID="right-id" />)
 }
 
-const renderWithDefaultProps = () => render(<Button {...defaultProps} />)
+const renderWithDefaultProps = () => render(<TextInput {...defaultProps} />)
 
-describe('<Button />', () => {
+describe('<TextInput />', () => {
   it('must render correctly', async () => {
     renderWithDefaultProps()
 
-    const { getByText } = screen
+    const { getByPlaceholderText } = screen
 
-    expect(getByText(defaultProps.title)).toBeTruthy()
-  })
-
-  it('must handle onPress correctly', async () => {
-    renderWithDefaultProps()
-
-    fireEvent.press(screen.getByText(defaultProps.title))
-
-    expect(defaultProps.onPress).toHaveBeenCalledTimes(1)
+    expect(getByPlaceholderText(defaultProps.placeholder)).toBeTruthy()
   })
 
   it('must handle renderLeft correctly', async () => {

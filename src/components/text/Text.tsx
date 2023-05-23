@@ -2,8 +2,10 @@ import type { FunctionComponent } from 'react'
 
 import { Text as RNText } from 'react-native'
 
-import type { TextProps as RNTextProps } from 'react-native'
+import type { TextProps } from 'react-native'
 
-type TextProps = RNTextProps
-
-export const Text: FunctionComponent<TextProps> = ({ children }) => <RNText>{children}</RNText>
+export const Text: FunctionComponent<TextProps> = ({ children, className, ...props }) => (
+  <RNText className={`font-normal text-base text-neutral-800 ${className}`} {...props}>
+    {children}
+  </RNText>
+)
