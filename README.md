@@ -6,3 +6,4 @@
 - commitlint
 - commitzen
 - jest
+- nativewind
