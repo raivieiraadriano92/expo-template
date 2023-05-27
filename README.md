@@ -1,4 +1,4 @@
-# Expo Template
+# Expo Template TypeScript
 
 [![Node.js Package](https://github.com/raivieiraadriano92/expo-template/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/raivieiraadriano92/expo-template/actions/workflows/npm-publish.yml)
 
