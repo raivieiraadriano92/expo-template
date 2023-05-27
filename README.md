@@ -26,7 +26,7 @@ Simple Expo template to quickly get started with:
 ## 🚀 How to use
 
 ```
-yarn create MyAwesomeApp --template codeapp-expo-template
+yarn create expo-app --template codeapp-expo-template
 ```
 
 ## ☁️ Build in the cloud
