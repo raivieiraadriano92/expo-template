@@ -21,6 +21,7 @@ Simple Expo template to quickly get started with:
 - [Commitzen](https://github.com/commitizen/cz-cli)
 - [Jest](https://jestjs.io/)
 - [NativeWind](https://www.nativewind.dev/)
+- [React Navigation](https://reactnavigation.org/)
 
 ## 🚀 How to use
 
