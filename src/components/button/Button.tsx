@@ -2,47 +2,75 @@ import type { FunctionComponent } from 'react'
 
 import { Pressable, View } from 'react-native'
 import { Text } from 'src/components/text/Text'
-import colors from 'src/theme/colors'
+import colors from 'tailwindcss/colors'
 
 import type { PressableProps } from 'react-native'
 
-type CustomRender = FunctionComponent<{ color: string }>
+type CustomRender = FunctionComponent<{ color: string; size: number }>
 
 type Size = 'lg' | 'small'
 
 type ButtonProps = PressableProps & {
+  renderChildren?: CustomRender
   renderLeft?: CustomRender
   renderRight?: CustomRender
+  rounded?: boolean
   size?: Size
-  title: string
+  title?: string
 }
 
-const BASE_COLOR = colors.text.base
+type ButtonStyle = { container: string; text: string }
 
-const sizes: Record<Size, { container: string; text: string }> = {
-  lg: {
-    container: 'h-14 px-8 rounded-xl',
-    text: ''
-  },
-  small: {
-    container: 'h-11 px-6 rounded-lg',
-    text: 'text-sm'
+const BASE_COLOR = colors.gray[900]
+
+const BASE_ICON_SIZE = 24
+
+const getStyle: (_: Required<Pick<ButtonProps, 'rounded' | 'size'>>) => ButtonStyle = ({
+  rounded,
+  size
+}) => {
+  const styles: Record<Size, ButtonStyle> = {
+    lg: {
+      container: `h-14 rounded-xl ${rounded ? 'rounded-full w-14' : 'px-8'}`,
+      text: ''
+    },
+    small: {
+      container: `h-11 rounded-lg ${rounded ? 'rounded-full w-11' : 'px-6'}`,
+      text: 'text-sm'
+    }
   }
+
+  return styles[size]
 }
 
 export const Button: FunctionComponent<ButtonProps> = ({
   className,
+  disabled,
+  renderChildren,
   renderLeft,
   renderRight,
+  rounded = false,
   size = 'lg',
   title,
   ...props
-}) => (
-  <Pressable
-    className={`bg-primary-500 active:bg-primary-600 flex-row items-center justify-center ${sizes[size].container} ${className}`}
-    {...props}>
-    {!!renderLeft && <View className="mr-2">{renderLeft({ color: BASE_COLOR })}</View>}
-    <Text className={`font-medium text-text-base ${sizes[size].text}`}>{title}</Text>
-    {!!renderRight && <View className="ml-2">{renderRight({ color: BASE_COLOR })}</View>}
-  </Pressable>
-)
+}) => {
+  const style = getStyle({ rounded, size })
+
+  return (
+    <Pressable
+      className={`${
+        disabled ? 'bg-gray-400' : 'bg-blue-500'
+      } active:bg-blue-600 flex-row items-center justify-center ${style.container} ${className}`}
+      disabled={disabled}
+      {...props}>
+      {!!renderLeft && (
+        <View className="mr-2">{renderLeft({ color: BASE_COLOR, size: BASE_ICON_SIZE })}</View>
+      )}
+      {!!title && <Text className={`font-medium text-white ${style.text}`}>{title}</Text>}
+      {!!renderChildren && renderChildren({ color: BASE_COLOR, size: BASE_ICON_SIZE })}
+      {!!renderRight && (
+        <View className="ml-2">{renderRight({ color: BASE_COLOR, size: BASE_ICON_SIZE })}</View>
+      )}
+    </Pressable>
+  )
+}
