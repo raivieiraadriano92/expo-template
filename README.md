@@ -38,3 +38,8 @@ yarn create expo-app --template codeapp-expo-template
 - [Expo Docs](https://docs.expo.dev/)
 - [React Native docs](https://reactnative.dev/docs/getting-started)
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+
+## 🌈 Utils
+
+- [Screenshot creator for the Apple App and Google Play Store](https://appscreens.com/)
+- [Generate a generic Privacy Policy and Terms & Conditions for your apps](https://app-privacy-policy-generator.nisrulz.com/)
