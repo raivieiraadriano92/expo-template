@@ -43,3 +43,5 @@ yarn create expo-app --template codeapp-expo-template
 
 - [Screenshot creator for the Apple App and Google Play Store](https://appscreens.com/)
 - [Generate a generic Privacy Policy and Terms & Conditions for your apps](https://app-privacy-policy-generator.nisrulz.com/)
+- [Free mockup generator](https://mockups.pixeltrue.com/)
+- [Free mockup generator](https://mockups.pixeltrue.com/)
