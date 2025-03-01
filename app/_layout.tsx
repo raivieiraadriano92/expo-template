@@ -8,7 +8,8 @@ import {
   DefaultTheme,
   DarkTheme
 } from "@react-navigation/native";
-import { Stack } from "expo-router";
+import * as Sentry from "@sentry/react-native";
+import { Stack, useNavigationContainerRef } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { Platform } from "react-native";
@@ -16,6 +17,8 @@ import { Platform } from "react-native";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
+import { initSentry, navigationIntegration } from "~/services/sentry";
+import { initVexo } from "~/services/vexo";
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -45,7 +48,19 @@ export const unstable_settings = {
   initialRouteName: "index"
 };
 
-export default function RootLayout() {
+initVexo();
+
+initSentry();
+
+const useIsomorphicLayoutEffect =
+  Platform.OS === "web" && typeof window === "undefined"
+    ? React.useEffect
+    : React.useLayoutEffect;
+
+function RootLayout() {
+  // Capture the NavigationContainer ref and register it with the integration.
+  const ref = useNavigationContainerRef();
+
   const hasMounted = React.useRef(false);
 
   const { colorScheme, isDarkColorScheme } = useColorScheme();
@@ -71,6 +86,12 @@ export default function RootLayout() {
     SplashScreen.hideAsync();
   }, []);
 
+  React.useEffect(() => {
+    if (ref?.current) {
+      navigationIntegration.registerNavigationContainer(ref);
+    }
+  }, [ref]);
+
   if (!isColorSchemeLoaded) {
     return null;
   }
@@ -89,7 +110,4 @@ export default function RootLayout() {
   );
 }
 
-const useIsomorphicLayoutEffect =
-  Platform.OS === "web" && typeof window === "undefined"
-    ? React.useEffect
-    : React.useLayoutEffect;
+export default Sentry.wrap(RootLayout);
