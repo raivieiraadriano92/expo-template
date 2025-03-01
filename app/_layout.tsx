@@ -27,11 +27,6 @@ const DARK_THEME: Theme = {
   colors: NAV_THEME.dark
 };
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary
-} from "expo-router";
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -39,6 +34,16 @@ SplashScreen.setOptions({
   duration: 5000,
   fade: true
 });
+
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary
+} from "expo-router";
+
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: "index"
+};
 
 export default function RootLayout() {
   const hasMounted = React.useRef(false);
