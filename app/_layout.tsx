@@ -31,7 +31,7 @@ const DARK_THEME: Theme = {
 SplashScreen.preventAutoHideAsync();
 
 SplashScreen.setOptions({
-  duration: 5000,
+  duration: 500,
   fade: true
 });
 
