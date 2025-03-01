@@ -19,12 +19,12 @@ import { useColorScheme } from "~/lib/useColorScheme";
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
-  colors: NAV_THEME.light
+  colors: { ...DefaultTheme.colors, ...NAV_THEME.light }
 };
 
 const DARK_THEME: Theme = {
   ...DarkTheme,
-  colors: NAV_THEME.dark
+  colors: { ...DarkTheme.colors, ...NAV_THEME.dark }
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -79,7 +79,10 @@ export default function RootLayout() {
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <Stack>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="(tabs)"
+          options={{ headerShown: false, title: "Main" }}
+        />
         <Stack.Screen name="+not-found" options={{ title: "Oops!" }} />
       </Stack>
     </ThemeProvider>

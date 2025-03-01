@@ -1,16 +1,19 @@
-import { Link, Stack } from "expo-router";
-import { Text, View } from "react-native";
+import { Link } from "expo-router";
+import { View } from "react-native";
+
+import { Button } from "~/components/ui/button";
+import { Text } from "~/components/ui/text";
+import { P } from "~/components/ui/typography";
 
 export default function NotFoundScreen() {
   return (
-    <>
-      <Stack.Screen options={{ title: "Oops!" }} />
-      <View>
-        <Text>This screen doesn't exist.</Text>
-        <Link href="/">
+    <View className="flex-1 items-center justify-center gap-6">
+      <P>This screen doesn't exist.</P>
+      <Link asChild href="/" replace>
+        <Button>
           <Text>Go to home screen!</Text>
-        </Link>
-      </View>
-    </>
+        </Button>
+      </Link>
+    </View>
   );
 }

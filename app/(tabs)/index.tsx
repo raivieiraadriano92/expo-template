@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { View } from "react-native";
 
 import { Button } from "~/components/ui/button";
@@ -20,6 +21,9 @@ export default function HomeScreen() {
     <View className="flex-1 items-center justify-center">
       <Button onPress={toggleColorScheme}>
         <Text>Toggle Theme</Text>
+      </Button>
+      <Button onPress={() => router.push("/no-existent-route")}>
+        <Text>Not Found</Text>
       </Button>
     </View>
   );
