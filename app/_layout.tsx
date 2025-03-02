@@ -1,6 +1,6 @@
 import "~/global.css";
 
-import * as React from "react";
+import { useEffect } from "react";
 
 import {
   Theme,
@@ -12,11 +12,9 @@ import * as Sentry from "@sentry/react-native";
 import { Stack, useNavigationContainerRef } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { Platform } from "react-native";
 
-import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
+import { useLoadColorScheme } from "~/hooks/useLoadColorScheme";
 import { NAV_THEME } from "~/lib/constants";
-import { useColorScheme } from "~/lib/useColorScheme";
 import { initSentry, navigationIntegration } from "~/services/sentry";
 import { initVexo } from "~/services/vexo";
 
@@ -45,52 +43,30 @@ export {
 
 export const unstable_settings = {
   // Ensure any route can link back to `/`
-  initialRouteName: "index"
+  initialRouteName: "(tabs)"
 };
 
 initVexo();
 
 initSentry();
 
-const useIsomorphicLayoutEffect =
-  Platform.OS === "web" && typeof window === "undefined"
-    ? React.useEffect
-    : React.useLayoutEffect;
-
 function RootLayout() {
   // Capture the NavigationContainer ref and register it with the integration.
   const ref = useNavigationContainerRef();
 
-  const hasMounted = React.useRef(false);
+  const { isColorSchemeLoaded, isDarkColorScheme } = useLoadColorScheme();
 
-  const { colorScheme, isDarkColorScheme } = useColorScheme();
-
-  const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
-
-  useIsomorphicLayoutEffect(() => {
-    if (hasMounted.current) {
-      return;
-    }
-
-    if (Platform.OS === "web") {
-      // Adds the background color to the html element to prevent white background on overscroll.
-      document.documentElement.classList.add("bg-background");
-    }
-
-    setAndroidNavigationBar(colorScheme);
-
-    setIsColorSchemeLoaded(true);
-
-    hasMounted.current = true;
-
-    SplashScreen.hideAsync();
-  }, []);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (ref?.current) {
       navigationIntegration.registerNavigationContainer(ref);
     }
   }, [ref]);
+
+  useEffect(() => {
+    if (isColorSchemeLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [isColorSchemeLoaded, isDarkColorScheme]);
 
   if (!isColorSchemeLoaded) {
     return null;
@@ -99,11 +75,9 @@ function RootLayout() {
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Stack>
-        <Stack.Screen
-          name="(tabs)"
-          options={{ headerShown: false, title: "Main" }}
-        />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(tabs)" options={{ title: "Main" }} />
         <Stack.Screen name="+not-found" options={{ title: "Oops!" }} />
       </Stack>
     </ThemeProvider>
