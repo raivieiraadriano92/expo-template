@@ -76,7 +76,6 @@ function RootLayout() {
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" options={{ title: "Main" }} />
         <Stack.Screen name="+not-found" options={{ title: "Oops!" }} />
       </Stack>
@@ -84,4 +83,4 @@ function RootLayout() {
   );
 }
 
-export default Sentry.wrap(RootLayout);
+export default __DEV__ ? RootLayout : Sentry.wrap(RootLayout);
