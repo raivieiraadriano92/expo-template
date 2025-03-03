@@ -13,7 +13,8 @@ import { Stack, useNavigationContainerRef } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 
-import { useLoadColorScheme } from "~/hooks/useLoadColorScheme";
+import { useLoadColorScheme } from "~/hooks/use-load-color-scheme";
+import { useProtectedRoute } from "~/hooks/use-protected-route";
 import { NAV_THEME } from "~/lib/constants";
 import { initSentry, navigationIntegration } from "~/services/sentry";
 import { initVexo } from "~/services/vexo";
@@ -43,7 +44,7 @@ export {
 
 export const unstable_settings = {
   // Ensure any route can link back to `/`
-  initialRouteName: "(tabs)"
+  initialRouteName: "/"
 };
 
 initVexo();
@@ -56,6 +57,8 @@ function RootLayout() {
 
   const { isColorSchemeLoaded, isDarkColorScheme } = useLoadColorScheme();
 
+  const { isInitialized } = useProtectedRoute();
+
   useEffect(() => {
     if (ref?.current) {
       navigationIntegration.registerNavigationContainer(ref);
@@ -63,10 +66,10 @@ function RootLayout() {
   }, [ref]);
 
   useEffect(() => {
-    if (isColorSchemeLoaded) {
+    if (isColorSchemeLoaded && isInitialized) {
       SplashScreen.hideAsync();
     }
-  }, [isColorSchemeLoaded, isDarkColorScheme]);
+  }, [isColorSchemeLoaded, isInitialized]);
 
   if (!isColorSchemeLoaded) {
     return null;
@@ -76,8 +79,8 @@ function RootLayout() {
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" options={{ title: "Main" }} />
-        <Stack.Screen name="+not-found" options={{ title: "Oops!" }} />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(protected)" />
       </Stack>
     </ThemeProvider>
   );

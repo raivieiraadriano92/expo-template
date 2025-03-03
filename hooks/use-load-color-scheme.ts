@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import { Platform } from "react-native";
 
-import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect } from "./use-isomorphic-layout-effect";
 
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { useColorScheme } from "~/lib/useColorScheme";
