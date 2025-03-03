@@ -9,8 +9,9 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.raivieiraadriano92.fastify-app"
+      "supportsTablet": false,
+      "bundleIdentifier": "com.raivieiraadriano92.fastify-app",
+      "usesAppleSignIn": true
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +26,8 @@
     },
     "plugins": [
       "expo-router",
+      "expo-apple-authentication",
+      "@react-native-google-signin/google-signin",
       [
         "expo-splash-screen",
         {

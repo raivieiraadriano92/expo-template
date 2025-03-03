@@ -12,6 +12,8 @@ import * as Sentry from "@sentry/react-native";
 import { Stack, useNavigationContainerRef } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Toaster } from "sonner-native";
 
 import { useLoadColorScheme } from "~/hooks/use-load-color-scheme";
 import { useOnAuthStateChange } from "~/hooks/use-on-auth-state-change";
@@ -79,13 +81,16 @@ function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(protected)" />
-      </Stack>
-    </ThemeProvider>
+    <GestureHandlerRootView className="flex-1">
+      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(protected)" />
+        </Stack>
+        <Toaster closeButton richColors />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
 
