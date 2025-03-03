@@ -10,7 +10,6 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.raivieiraadriano92.expo-template",
       "usesAppleSignIn": true
     },
     "android": {
