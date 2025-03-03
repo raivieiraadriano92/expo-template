@@ -14,6 +14,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 
 import { useLoadColorScheme } from "~/hooks/use-load-color-scheme";
+import { useOnAuthStateChange } from "~/hooks/use-on-auth-state-change";
 import { useProtectedRoute } from "~/hooks/use-protected-route";
 import { NAV_THEME } from "~/lib/constants";
 import { initSentry, navigationIntegration } from "~/services/sentry";
@@ -58,6 +59,8 @@ function RootLayout() {
   const { isColorSchemeLoaded, isDarkColorScheme } = useLoadColorScheme();
 
   const { isInitialized } = useProtectedRoute();
+
+  useOnAuthStateChange();
 
   useEffect(() => {
     if (ref?.current) {

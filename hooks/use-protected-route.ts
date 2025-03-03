@@ -9,8 +9,6 @@ export function useProtectedRoute() {
 
   const segments = useSegments();
 
-  console.log(segments);
-
   const userId = useAuthStore((state) => state.session?.user.id);
 
   const [isInitialized, setIsInitialized] = useState(false);

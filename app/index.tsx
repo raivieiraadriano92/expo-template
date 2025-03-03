@@ -2,14 +2,19 @@ import { View } from "react-native";
 
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
-import { useAuthStore } from "~/store/auth-store";
+import { supabase } from "~/services/supabase";
 
 export default function WelcomeScreen() {
-  const { setSession } = useAuthStore();
-
   return (
     <View className="flex-1 items-center justify-center">
-      <Button onPress={() => setSession({ user: { id: 1 } })}>
+      <Button
+        onPress={() =>
+          supabase.auth
+            .signInAnonymously()
+            .then(({ error }) => error && console.error(error))
+            .catch(console.error)
+        }
+      >
         <Text>Login</Text>
       </Button>
     </View>
