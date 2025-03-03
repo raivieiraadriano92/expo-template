@@ -3,9 +3,15 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { ActivityIndicator, Pressable } from "react-native";
 import Animated, {
+  cancelAnimation,
   FadeIn,
   FadeOut,
-  LinearTransition
+  LinearTransition,
+  runOnJS,
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withTiming
 } from "react-native-reanimated";
 
 import { TextClassContext } from "~/components/ui/text";
@@ -69,42 +75,94 @@ const buttonTextVariants = cva(
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Pressable> &
   VariantProps<typeof buttonVariants> & {
     isLoading?: boolean;
+    targetScale?: number;
   };
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const Button = React.forwardRef<
   React.ElementRef<typeof Pressable>,
   ButtonProps
->(({ className, variant, size, isLoading, children, ...props }, ref) => (
-  <TextClassContext.Provider
-    value={buttonTextVariants({
+>(
+  (
+    {
+      className,
       variant,
       size,
-      className: "web:pointer-events-none"
-    })}
-  >
-    <Pressable
-      className={cn(
-        props.disabled && "opacity-50 web:pointer-events-none",
-        buttonVariants({ variant, size, className })
-      )}
-      ref={ref}
-      role="button"
-      {...props}
-    >
-      <Animated.View
-        className="flex-row items-center gap-2"
-        layout={LinearTransition}
+      isLoading,
+      children,
+      onPressIn,
+      onPressOut,
+      style,
+      targetScale = 0.98,
+      ...props
+    },
+    ref
+  ) => {
+    const reducedMotion = useReducedMotion();
+
+    const scale = useSharedValue(1);
+
+    const animatedStyle = useAnimatedStyle(() => ({
+      transform: [{ scale: scale.value }]
+    }));
+
+    return (
+      <TextClassContext.Provider
+        value={buttonTextVariants({
+          variant,
+          size,
+          className: "web:pointer-events-none"
+        })}
       >
-        {children}
-        {isLoading && (
-          <Animated.View entering={FadeIn} exiting={FadeOut}>
-            <ActivityIndicator />
+        <AnimatedPressable
+          className={cn(
+            props.disabled && "opacity-50 web:pointer-events-none",
+            buttonVariants({ variant, size, className })
+          )}
+          ref={ref}
+          role="button"
+          onPressIn={(e) => {
+            "worklet";
+
+            if (onPressIn) {
+              runOnJS(onPressIn)(e);
+            }
+
+            cancelAnimation(scale);
+
+            scale.value = withTiming(targetScale, { duration: 100 });
+          }}
+          onPressOut={(e) => {
+            "worklet";
+
+            if (onPressOut) {
+              runOnJS(onPressOut)(e);
+            }
+
+            cancelAnimation(scale);
+
+            scale.value = withTiming(1, { duration: 100 });
+          }}
+          style={[!reducedMotion && animatedStyle, style]}
+          {...props}
+        >
+          <Animated.View
+            className="flex-row items-center gap-2"
+            layout={LinearTransition}
+          >
+            {children}
+            {isLoading && (
+              <Animated.View entering={FadeIn} exiting={FadeOut}>
+                <ActivityIndicator />
+              </Animated.View>
+            )}
           </Animated.View>
-        )}
-      </Animated.View>
-    </Pressable>
-  </TextClassContext.Provider>
-));
+        </AnimatedPressable>
+      </TextClassContext.Provider>
+    );
+  }
+);
 
 Button.displayName = "Button";
 
