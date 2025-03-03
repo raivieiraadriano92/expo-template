@@ -56,7 +56,6 @@ export function SignInButton({
     <Button
       className={providerConfig.className}
       variant={providerConfig.variant}
-      disabled={isLoading}
       onPress={onPress}
       isLoading={isLoading}
     >

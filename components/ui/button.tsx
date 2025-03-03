@@ -6,6 +6,7 @@ import Animated, {
   cancelAnimation,
   FadeIn,
   FadeOut,
+  LayoutAnimationConfig,
   LinearTransition,
   runOnJS,
   useAnimatedStyle,
@@ -86,6 +87,7 @@ const Button = React.forwardRef<
 >(
   (
     {
+      disabled,
       className,
       variant,
       size,
@@ -115,50 +117,53 @@ const Button = React.forwardRef<
           className: "web:pointer-events-none"
         })}
       >
-        <AnimatedPressable
-          className={cn(
-            props.disabled && "opacity-50 web:pointer-events-none",
-            buttonVariants({ variant, size, className })
-          )}
-          ref={ref}
-          role="button"
-          onPressIn={(e) => {
-            "worklet";
-
-            if (onPressIn) {
-              runOnJS(onPressIn)(e);
-            }
-
-            cancelAnimation(scale);
-
-            scale.value = withTiming(targetScale, { duration: 100 });
-          }}
-          onPressOut={(e) => {
-            "worklet";
-
-            if (onPressOut) {
-              runOnJS(onPressOut)(e);
-            }
-
-            cancelAnimation(scale);
-
-            scale.value = withTiming(1, { duration: 100 });
-          }}
-          style={[!reducedMotion && animatedStyle, style]}
-          {...props}
-        >
-          <Animated.View
-            className="flex-row items-center gap-2"
-            layout={LinearTransition}
-          >
-            {children}
-            {isLoading && (
-              <Animated.View entering={FadeIn} exiting={FadeOut}>
-                <ActivityIndicator />
-              </Animated.View>
+        <LayoutAnimationConfig skipEntering>
+          <AnimatedPressable
+            className={cn(
+              (disabled || isLoading) && "opacity-50 web:pointer-events-none",
+              buttonVariants({ variant, size, className })
             )}
-          </Animated.View>
-        </AnimatedPressable>
+            disabled={disabled || isLoading}
+            ref={ref}
+            role="button"
+            onPressIn={(e) => {
+              "worklet";
+
+              if (onPressIn) {
+                runOnJS(onPressIn)(e);
+              }
+
+              cancelAnimation(scale);
+
+              scale.value = withTiming(targetScale, { duration: 100 });
+            }}
+            onPressOut={(e) => {
+              "worklet";
+
+              if (onPressOut) {
+                runOnJS(onPressOut)(e);
+              }
+
+              cancelAnimation(scale);
+
+              scale.value = withTiming(1, { duration: 100 });
+            }}
+            style={[!reducedMotion && animatedStyle, style]}
+            {...props}
+          >
+            <Animated.View
+              className="flex-row items-center gap-2"
+              layout={LinearTransition}
+            >
+              {children}
+              {isLoading && (
+                <Animated.View entering={FadeIn} exiting={FadeOut}>
+                  <ActivityIndicator />
+                </Animated.View>
+              )}
+            </Animated.View>
+          </AnimatedPressable>
+        </LayoutAnimationConfig>
       </TextClassContext.Provider>
     );
   }
