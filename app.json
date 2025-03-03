@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "fastify-app",
-    "slug": "fastify-app",
+    "name": "expo-template",
+    "slug": "expo-template",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.raivieiraadriano92.fastify-app",
+      "bundleIdentifier": "com.raivieiraadriano92.expo-template",
       "usesAppleSignIn": true
     },
     "android": {
