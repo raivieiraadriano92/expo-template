@@ -1,4 +1,5 @@
 import { Image, Platform, View } from "react-native";
+import Animated, { FadeInUp } from "react-native-reanimated";
 import { toast } from "sonner-native";
 
 import { SignInButton } from "~/components/sign-in-button";
@@ -33,44 +34,58 @@ export default function WelcomeScreen() {
   return (
     <View className="p-safe m-6 flex-1 gap-10">
       {/* Logo Section */}
-      <View className="flex-1 items-center justify-center">
+      <Animated.View
+        className="flex-1 items-center justify-center"
+        entering={FadeInUp}
+      >
         <Image
           source={require("assets/images/icon.png")}
           className="h-24 w-24"
         />
-      </View>
+      </Animated.View>
 
       {/* Title Section */}
       <View className="items-center gap-3">
-        <H1 className="text-center">Start Your Fasting Journey Today!</H1>
-        <P className="text-center">
-          Welcome to Fastify, your all-in-one solution for intermittent fasting
-          success. Let's get started on journey to better health and well-being!
-        </P>
+        <Animated.View entering={FadeInUp.delay(50)}>
+          <H1 className="text-center">Start Your Fasting Journey Today!</H1>
+        </Animated.View>
+        <Animated.View entering={FadeInUp.delay(100)}>
+          <P className="text-center">
+            Welcome to Fastify, your all-in-one solution for intermittent
+            fasting success. Let's get started on journey to better health and
+            well-being!
+          </P>
+        </Animated.View>
       </View>
 
       {/* Auth Buttons Section */}
       <View className="gap-3">
         {Platform.OS === "ios" && (
-          <SignInButton
-            provider="apple"
-            onPress={() => handleSignIn("apple")}
-            isLoading={isLoading.apple}
-          />
+          <Animated.View entering={FadeInUp.delay(150)}>
+            <SignInButton
+              provider="apple"
+              onPress={() => handleSignIn("apple")}
+              isLoading={isLoading.apple}
+            />
+          </Animated.View>
         )}
         {Platform.OS === "android" && (
-          <SignInButton
-            provider="google"
-            onPress={() => handleSignIn("google")}
-            isLoading={isLoading.google}
-          />
+          <Animated.View entering={FadeInUp.delay(150)}>
+            <SignInButton
+              provider="google"
+              onPress={() => handleSignIn("google")}
+              isLoading={isLoading.google}
+            />
+          </Animated.View>
         )}
         {__DEV__ && (
-          <SignInButton
-            provider="anonymous"
-            onPress={() => handleSignIn("anonymous")}
-            isLoading={isLoading.anonymous}
-          />
+          <Animated.View entering={FadeInUp.delay(200)}>
+            <SignInButton
+              provider="anonymous"
+              onPress={() => handleSignIn("anonymous")}
+              isLoading={isLoading.anonymous}
+            />
+          </Animated.View>
         )}
       </View>
     </View>
