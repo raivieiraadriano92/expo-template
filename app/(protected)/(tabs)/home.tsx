@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View } from "react-native";
 
 import { Button } from "~/components/ui/button";
@@ -12,11 +13,13 @@ export default function HomeScreen() {
   const { signOut } = useAuthStore();
 
   function toggleColorScheme() {
-    const newTheme = isDarkColorScheme ? "light" : "dark";
+    const colorScheme = isDarkColorScheme ? "light" : "dark";
 
-    setColorScheme(newTheme);
+    setColorScheme(colorScheme);
 
-    setAndroidNavigationBar(newTheme);
+    setAndroidNavigationBar(colorScheme);
+
+    AsyncStorage.setItem("colorScheme", colorScheme);
   }
 
   return (

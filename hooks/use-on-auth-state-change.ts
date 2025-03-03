@@ -12,8 +12,6 @@ export const useOnAuthStateChange = () => {
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("Initial session", session);
-
       setSession(session);
     });
 
@@ -21,8 +19,6 @@ export const useOnAuthStateChange = () => {
     const {
       data: { subscription }
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log("Auth state change", session);
-
       setSession(session);
     });
 
