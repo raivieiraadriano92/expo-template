@@ -5,13 +5,13 @@
 @layer base {
   :root {
     /* --background: 0 0% 100%; */
-    --background: rgb(242, 242, 242); /* from react-native theme */
+    --background: 0 0% 94.9%; /* from react-native theme */
 
     /* --foreground: 240 10% 3.9%; */
-    --foreground: rgb(28, 28, 30); /* from react-native theme */
+    --foreground: 240 3.4% 11.4%; /* from react-native theme */
 
     /* --card: 0 0% 100%; */
-    --card: rgb(255, 255, 255); /* from react-native theme */
+    --card: 0 0% 100%; /* from react-native theme */
 
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -28,7 +28,7 @@
     --destructive-foreground: 0 0% 98%;
 
     /* --border: 240 5.9% 90%; */
-    --border: rgb(216, 216, 216); /* from react-native theme */
+    --border: 0 0% 84.7%; /* from react-native theme */
 
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
@@ -36,13 +36,13 @@
 
   .dark:root {
     /* --background: 240 10% 3.9%; */
-    --background: rgb(1, 1, 1); /* from react-native theme */
+    --background: 0 0% 0.4%; /* from react-native theme */
 
     /* --foreground: 0 0% 98%; */
-    --foreground: rgb(229, 229, 231); /* from react-native theme */
+    --foreground: 240 4% 90.2%; /* from react-native theme */
 
     /* --card: 240 10% 3.9%; */
-    --card: rgb(18, 18, 18); /* from react-native theme */
+    --card: 0 0% 7.1%; /* from react-native theme */
 
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
@@ -59,7 +59,7 @@
     --destructive-foreground: 0 0% 98%;
 
     /* --border: 240 3.7% 15.9%; */
-    --border: rgb(39, 39, 41); /* from react-native theme */
+    --border: 240 2.5% 15.7%; /* from react-native theme */
 
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
