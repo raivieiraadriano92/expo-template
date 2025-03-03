@@ -1,7 +1,5 @@
 import { useMemo } from "react";
 
-import { ActivityIndicator } from "react-native";
-
 import { Button } from "./ui/button";
 import { Text } from "./ui/text";
 
@@ -60,12 +58,12 @@ export function SignInButton({
       variant={providerConfig.variant}
       disabled={isLoading}
       onPress={onPress}
+      isLoading={isLoading}
     >
       {providerConfig.icon}
       <Text className={providerConfig.textClassName}>
         {providerConfig.label}
       </Text>
-      {isLoading && <ActivityIndicator />}
     </Button>
   );
 }
