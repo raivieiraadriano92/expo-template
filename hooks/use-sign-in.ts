@@ -102,17 +102,17 @@ export function useSignIn({ onError }: { onError: (e: unknown) => void }) {
 
       setIsLoading((prev) => ({ ...prev, anonymous: true }));
 
-      // const { error } = await supabase.auth.signInAnonymously();
+      const { error } = await supabase.auth.signInAnonymously();
 
       // const { error } = await supabase.auth.signUp({
       //   email: "anonymous@test.com",
       //   password: "password"
       // });
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email: "anonymous@test.com",
-        password: "password"
-      });
+      // const { error } = await supabase.auth.signInWithPassword({
+      //   email: "anonymous@test.com",
+      //   password: "password"
+      // });
 
       if (error) throw error;
     } catch (err) {

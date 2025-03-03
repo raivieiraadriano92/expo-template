@@ -67,7 +67,7 @@ const buttonTextVariants = cva(
     },
     defaultVariants: {
       variant: "default",
-      size: "default"
+      size: "lg"
     }
   }
 );
